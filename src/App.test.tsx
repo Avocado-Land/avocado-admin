@@ -1,14 +1,12 @@
+import React from 'react';
+import { AdminContext } from 'react-admin';
 import { render, screen } from '@testing-library/react';
-import App from './App';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+import MyAdmin from './admin';
 
-  const lintTest = screen.getByRole('button', {
-    name: 'lintTest',
-  });
+test('<MyAdmin>', async () => {
+  render(<MyAdmin />, { wrapper: AdminContext });
 
-  expect(lintTest.textContent).toBe('lintTest');
+  const items = await screen.findAllByText(/Item #[0-9]: /);
+  expect(items).toHaveLength(10);
 });
